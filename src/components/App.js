@@ -2,10 +2,33 @@ import React, { useState } from 'react'
 import '../styles/App.css';
 
 const App = () => {
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
-  const [backgroundColor, setBackgroundColor] = useState("");
+  // const [width, setWidth] = useState("");
+  // const [height, setHeight] = useState("");
+  // const [backgroundColor, setBackgroundColor] = useState("");
+  const[specs, setSpecs] = useState({
+    width:0,
+    height:0,
+    backgroundColor:"",
+  });
 
+  const[styles, setStyles] = useState([]);
+
+
+  const handleChange = (e)=>{
+    setSpecs({
+      ...specs,
+      [e.target.name]:e.target.value,
+    })
+  }
+
+  const handleSubmit = ()=>{
+    setStyles([
+      ...styles, 
+      specs
+    ])
+  }
+
+  console.log(styles);
   return (
     <div id="main">
       <h1>Box Creator</h1>
@@ -14,6 +37,8 @@ const App = () => {
         <input
           id="width"
           type="number"
+          name='width'
+          onChange={handleChange}
         />
       </div>
       <div>
@@ -21,6 +46,8 @@ const App = () => {
         <input
           id="height"
           type="number"
+          name='height'
+          onChange={handleChange}
         />
       </div>
       <div>
@@ -28,10 +55,18 @@ const App = () => {
         <input
           id="backgroundColor"
           type="text"
+          name='backgroundColor'
+          onChange={handleChange}
         />
       </div>
-      <button className='create-btn'>Create Box</button>
-      <div id="box-container"></div>
+      <button className='create-btn' onClick={handleSubmit}>Create Box</button>
+      <div id="box-container">
+        {styles.map((style)=>{
+          console.log(style)
+            return <div style={{backgroundColor:`${style.backgroundColor}`, height:`${style.height}px`, width:`${style.width}px`}}></div>
+          })
+        }
+      </div>
     </div>
   );
 };
