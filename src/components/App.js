@@ -6,8 +6,8 @@ const App = () => {
   // const [height, setHeight] = useState("");
   // const [backgroundColor, setBackgroundColor] = useState("");
   const[specs, setSpecs] = useState({
-    width:0,
-    height:0,
+    width:"",
+    height:"",
     backgroundColor:"",
   });
 
@@ -26,6 +26,12 @@ const App = () => {
       ...styles, 
       specs
     ])
+
+    setSpecs({
+      height:"",
+      width:"",
+      backgroundColor:""
+    })
   }
 
   console.log(styles);
@@ -38,6 +44,7 @@ const App = () => {
           id="width"
           type="number"
           name='width'
+          value={specs.width}
           onChange={handleChange}
         />
       </div>
@@ -47,6 +54,7 @@ const App = () => {
           id="height"
           type="number"
           name='height'
+          value={specs.height}
           onChange={handleChange}
         />
       </div>
@@ -55,6 +63,7 @@ const App = () => {
         <input
           id="backgroundColor"
           type="text"
+          value={specs.backgroundColor}
           name='backgroundColor'
           onChange={handleChange}
         />
@@ -62,7 +71,6 @@ const App = () => {
       <button className='create-btn' onClick={handleSubmit}>Create Box</button>
       <div id="box-container">
         {styles.map((style)=>{
-          console.log(style)
             return <div style={{backgroundColor:`${style.backgroundColor}`, height:`${style.height}px`, width:`${style.width}px`}}></div>
           })
         }
